@@ -24,11 +24,20 @@ fn needed_fuel<T: IntoIterator<Item = usize>>(iter: T) -> usize {
 fn main() -> io::Result<()> {
     let file = File::open("masses.txt")?;
     let reader = BufReader::new(file);
-    let fuel_items = reader
+    let fuel_items: Vec<_> = reader
         .lines()
-        .map(|line| line.unwrap().parse::<usize>().unwrap());
-    let fuel_sum = needed_fuel(Box::new(fuel_items));
-    println!("Total fuel for the moduals is: {}", fuel_sum);
+        .map(|line| line.unwrap().parse::<usize>().unwrap())
+        .collect();
+    // Part 1:
+    let fuel_for_module_mass: usize = fuel_items.iter().map(|&m| module_fuel(m)).sum();
+    println!(
+        "Total fual for the mass of the modules: {}",
+        fuel_for_module_mass
+    );
+
+    // Part 2:
+    let total_fuel_sum = needed_fuel(fuel_items);
+    println!("Total fuel for the moduals is: {}", total_fuel_sum);
     Ok(())
 }
 
