@@ -21,7 +21,7 @@ fn find_noun_word_combo(codes: &Vec<usize>) -> usize {
             }
         }
     }
-    unreachable!()
+    unreachable!("Did not find any code that ended with: 19690720")
 }
 
 fn intcode_computer(codes: &mut [usize], noun: usize, word: usize) -> usize {
